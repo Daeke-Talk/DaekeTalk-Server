@@ -1,6 +1,6 @@
 package com.founderz.daeketalk.sms.dto;
 
-public record SendSmsRequest(
+public record SendSmsForm(
         String token_key,
         String msg_type,
         String send_phone,

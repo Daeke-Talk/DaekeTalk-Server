@@ -1,6 +1,6 @@
 package com.founderz.daeketalk.sms;
 
-import com.founderz.daeketalk.sms.dto.SendSmsRequest;
+import com.founderz.daeketalk.sms.dto.SendSmsForm;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -14,6 +14,6 @@ public interface SmsClient {
     void sendSms(
             @RequestHeader("x-api-key") String apiKey,
             @RequestHeader("x-forwarded-for") String forwardedFor,
-            @RequestBody SendSmsRequest request
+            @RequestBody SendSmsForm request
     );
 }
