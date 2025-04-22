@@ -13,6 +13,18 @@ public class SmsComponent {
     private final SmsProperties smsProperties;
     private final SmsClient smsClient;
 
+    public void sendCode(String phoneNumber, int validationCode) {
+        SendSmsForm request = new SendSmsForm(
+                smsProperties.tokenKey(),
+                "sms",
+                smsProperties.phoneNumber(),
+                phoneNumber,
+                createCodeMessage(validationCode)
+        );
+
+        smsClient.sendSms(smsProperties.apiKey(), "111.222.111.222", request);
+    }
+
     public void sendCheckedMessage(String phoneNumber, String name) {
         SendSmsForm request = new SendSmsForm(
                 smsProperties.tokenKey(),
@@ -25,13 +37,13 @@ public class SmsComponent {
         smsClient.sendSms(smsProperties.apiKey(), "111.222.111.222", request);
     }
 
-    public void sendCode(String phoneNumber, int validationCode) {
+    public void sendConfirmedMessage(String phoneNumber, String name) {
         SendSmsForm request = new SendSmsForm(
                 smsProperties.tokenKey(),
                 "sms",
                 smsProperties.phoneNumber(),
                 phoneNumber,
-                createCodeMessage(validationCode)
+                createConfirmedMessage(name)
         );
 
         smsClient.sendSms(smsProperties.apiKey(), "111.222.111.222", request);
@@ -57,5 +69,29 @@ public class SmsComponent {
                 문의 사항 & 질문
                 9기 학생회장 변정현
                 010-5706-2562 / 디스코드""", name).stripIndent();
+    }
+
+    private String createConfirmedMessage(String name) {
+        return String.format("""
+                [대크톡]
+                
+                안녕하세요, %s님
+                DSM 9기 학생회입니다.
+                
+                대크톡 참가가 확정되었음을 안내드립니다!
+                행사는 아래와 같이 진행될 예정입니다:
+                
+                장소: 마루 180(서울 강남구 역삼로 180)
+                날짜: 2025년 6월 14일 (토)
+                시간: 10 : 00 ~ 17 : 00
+                
+                입장은 09시 30분부터 가능합니다.
+                시간에 맞춰 여유 있게 도착해 주세요!
+                
+                멋진 시간 함께 만들어가요 :)
+                감사합니다!
+                
+                행사 소개 페이지 :
+                https://daektalk.xquare.app/""", name).stripIndent();
     }
 }

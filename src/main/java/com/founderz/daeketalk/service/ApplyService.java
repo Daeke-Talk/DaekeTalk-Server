@@ -1,6 +1,7 @@
 package com.founderz.daeketalk.service;
 
 import com.founderz.daeketalk.controller.dto.request.ApplyRequest;
+import com.founderz.daeketalk.controller.dto.request.PhoneNumbersRequest;
 import com.founderz.daeketalk.controller.dto.response.ApplyRecordResponse;
 import com.founderz.daeketalk.entity.Participant;
 import com.founderz.daeketalk.repository.ParticipantRepository;
@@ -9,6 +10,8 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -25,9 +28,20 @@ public class ApplyService {
                         .generation(request.generation())
                         .jobPosition(request.job_position())
                         .phoneNumber(request.phone_number())
+                        .isConfirmed(false)
                         .build());
 
         smsComponent.sendCheckedMessage(request.phone_number(), request.name());
+    }
+
+    @Transactional
+    public void confirmedParticipation(PhoneNumbersRequest request) {
+        List<Participant> participants = participantRepository.findAllByPhoneNumberIn(request.phone_numbers());
+
+        for (Participant participant : participants) {
+            participant.confirm();
+            smsComponent.sendConfirmedMessage(participant.getPhoneNumber(), participant.getName());
+        }
     }
 
     @Transactional(readOnly = true)
