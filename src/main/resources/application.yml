@@ -12,11 +12,8 @@ spring:
       ddl-auto: update
   data:
     redis:
-      host: redis.xquare.app
+      host: ${REDIS_HOST}
 sms:
   api-key: ${SMS_API_KEY}
   token-key: ${SMS_TOKEN_KEY}
   phone-number: ${SMS_SEND_PHONE_NUMBER}
-redis:
-  host: ${REDIS_HOST}
-  port: 6379
