@@ -1,7 +1,7 @@
 package com.founderz.daeketalk.repository;
 
 import com.founderz.daeketalk.entity.PhoneValidationCheck;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 
-public interface PhoneValCheckRepository extends JpaRepository<PhoneValidationCheck, String> {
+public interface PhoneValCheckRepository extends CrudRepository<PhoneValidationCheck, String> {
 }

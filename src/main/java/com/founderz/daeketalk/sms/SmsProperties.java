@@ -1,4 +1,11 @@
 package com.founderz.daeketalk.sms;
 
-public record SmsProperties() {
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
+@ConfigurationProperties(prefix = "sms")
+public record SmsProperties(
+        String apiKey,
+        String tokenKey,
+        String phoneNumber
+) {
 }

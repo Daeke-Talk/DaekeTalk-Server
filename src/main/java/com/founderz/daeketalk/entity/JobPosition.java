@@ -1,7 +1,6 @@
 package com.founderz.daeketalk.entity;
 
-public enum Position {
-
+public enum JobPosition {
     FRONTEND,
     BACKEND,
     DEVOPS,

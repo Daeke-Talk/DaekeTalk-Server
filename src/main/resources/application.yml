@@ -1,1 +1,16 @@
-spring.application.name=DaekeTalk
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    open-in-view: false
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+sms:
+  api-key: ${SMS_API_KEY}
+  token-key: ${SMS_TOKEN_KEY}
+  phone-number: ${SMS_SEND_PHONE_NUMBER}

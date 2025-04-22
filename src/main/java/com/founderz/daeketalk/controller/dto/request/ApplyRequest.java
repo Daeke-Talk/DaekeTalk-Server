@@ -1,4 +1,4 @@
-package com.founderz.daeketalk.controller.dto;
+package com.founderz.daeketalk.controller.dto.request;
 
 import com.founderz.daeketalk.entity.JobPosition;
 

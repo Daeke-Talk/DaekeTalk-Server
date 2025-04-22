@@ -1,8 +1,8 @@
 package com.founderz.daeketalk.entity;
 
-import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 
 @Getter
@@ -16,11 +16,7 @@ public class PhoneValidationCheck {
     private final int validationCode;
     private boolean isValid;
 
-    public boolean isValid() {
-        return isValid;
-    }
-
-    public void validationsucceed() {
+    public void validationSucceed() {
         this.isValid = true;
     }
 }
