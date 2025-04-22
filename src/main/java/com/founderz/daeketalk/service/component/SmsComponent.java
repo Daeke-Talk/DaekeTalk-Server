@@ -13,13 +13,13 @@ public class SmsComponent {
     private final SmsProperties smsProperties;
     private final SmsClient smsClient;
 
-    public void sendConfirmedMessage(String phoneNumber, String name) {
+    public void sendCheckedMessage(String phoneNumber, String name) {
         SendSmsForm request = new SendSmsForm(
                 smsProperties.tokenKey(),
                 "sms",
                 smsProperties.phoneNumber(),
                 phoneNumber,
-                createConfirmedMessage(name)
+                createCheckMessage(name)
         );
 
         smsClient.sendSms(smsProperties.apiKey(), "111.222.111.222", request);
@@ -43,7 +43,7 @@ public class SmsComponent {
             타인에게 절대 알리지 마세요.""", validationCode).stripIndent();
     }
 
-    private String createConfirmedMessage(String name) {
+    private String createCheckMessage(String name) {
         return String.format("""
                 [대크톡]
                 

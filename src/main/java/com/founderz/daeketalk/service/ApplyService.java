@@ -27,7 +27,7 @@ public class ApplyService {
                         .phoneNumber(request.phone_number())
                         .build());
 
-        smsComponent.sendConfirmedMessage(request.phone_number(), request.name());
+        smsComponent.sendCheckedMessage(request.phone_number(), request.name());
     }
 
     @Transactional(readOnly = true)
