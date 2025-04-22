@@ -10,6 +10,9 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
+  data:
+    redis:
+      host: redis.xquare.app
 sms:
   api-key: ${SMS_API_KEY}
   token-key: ${SMS_TOKEN_KEY}
