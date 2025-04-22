@@ -23,8 +23,6 @@ public class ApplyService {
                         .generation(request.generation())
                         .jobPosition(request.job_position())
                         .phoneNumber(request.phone_number())
-                        .isPresenter(request.is_presenter())
-                        .presentationTopic(request.presentation_topic())
                         .build());
     }
 

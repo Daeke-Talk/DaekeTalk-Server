@@ -37,10 +37,4 @@ public class Participant {
 
     @Column(nullable = false, unique = true)
     private String phoneNumber;
-
-    @Column(nullable = false)
-    private boolean isPresenter;
-
-    @Column(nullable = true)
-    private String presentationTopic;
 }

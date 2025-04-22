@@ -6,8 +6,6 @@ public record ApplyRequest(
         String name,
         Integer generation,
         JobPosition job_position,
-        String phone_number,
-        boolean is_presenter,
-        String presentation_topic
+        String phone_number
 ) {
 }
