@@ -1,4 +1,4 @@
-package com.founderz.DaekTalk;
+package com.founderz.daektalk;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
