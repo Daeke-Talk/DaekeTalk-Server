@@ -5,7 +5,7 @@ import com.founderz.daeketalk.controller.dto.request.PhoneNumbersRequest;
 import com.founderz.daeketalk.controller.dto.response.ApplyRecordResponse;
 import com.founderz.daeketalk.entity.Participant;
 import com.founderz.daeketalk.repository.ParticipantRepository;
-import com.founderz.daeketalk.service.component.SmsComponent;
+import com.founderz.daeketalk.service.component.SmsSender;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,7 +18,7 @@ import java.util.List;
 public class ApplyService {
 
     private final ParticipantRepository participantRepository;
-    private final SmsComponent smsComponent;
+    private final SmsSender smsSender;
 
     @Transactional
     public void applyDaekeTalk(ApplyRequest request) {
@@ -31,7 +31,7 @@ public class ApplyService {
                         .isConfirmed(false)
                         .build());
 
-        smsComponent.sendCheckedMessage(request.phone_number(), request.name());
+        smsSender.sendCheckedMessage(request.phone_number(), request.name());
     }
 
     @Transactional
@@ -40,7 +40,7 @@ public class ApplyService {
 
         for (Participant participant : participants) {
             participant.confirm();
-            smsComponent.sendConfirmedMessage(participant.getPhoneNumber(), participant.getName());
+            smsSender.sendConfirmedMessage(participant.getPhoneNumber(), participant.getName());
         }
     }
 
@@ -63,6 +63,6 @@ public class ApplyService {
     public void cancelApply(String phoneNumber) {
         participantRepository.deleteByPhoneNumber(phoneNumber);
 
-        smsComponent.sendCancelledMessage(phoneNumber);
+        smsSender.sendCancelledMessage(phoneNumber);
     }
 }
