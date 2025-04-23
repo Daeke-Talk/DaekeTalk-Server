@@ -4,9 +4,10 @@ import com.founderz.daeketalk.entity.Participant;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ParticipantRepository extends JpaRepository<Participant, Long> {
-    Participant findByPhoneNumber(String phoneNumber);
+    Optional<Participant> findByPhoneNumber(String phoneNumber);
     void deleteByPhoneNumber(String phoneNumber);
     List<Participant> findAllByPhoneNumberIn(List<String> phoneNumbers);
 }
