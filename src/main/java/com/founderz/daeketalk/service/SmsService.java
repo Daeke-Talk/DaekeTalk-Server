@@ -4,7 +4,7 @@ import com.founderz.daeketalk.controller.dto.request.CodeValidationRequest;
 import com.founderz.daeketalk.controller.dto.request.SendCodeRequest;
 import com.founderz.daeketalk.entity.PhoneValidationCheck;
 import com.founderz.daeketalk.repository.PhoneValCheckRepository;
-import com.founderz.daeketalk.service.component.SmsComponent;
+import com.founderz.daeketalk.service.component.SmsSender;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,7 +16,7 @@ import org.springframework.web.server.ResponseStatusException;
 @RequiredArgsConstructor
 public class SmsService {
 
-    private final SmsComponent smsComponent;
+    private final SmsSender smsSender;
     private final PhoneValCheckRepository phoneValCheckRepository;
 
     @Transactional
@@ -30,7 +30,7 @@ public class SmsService {
                         false
                 ));
 
-        smsComponent.sendCode(request.phone_number(), validationCode);
+        smsSender.sendCode(request.phone_number(), validationCode);
     }
 
     @Transactional
