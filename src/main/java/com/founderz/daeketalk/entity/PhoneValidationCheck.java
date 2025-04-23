@@ -12,7 +12,6 @@ public class PhoneValidationCheck {
 
     @Id
     private String phoneNumber;
-    private final String name;
     private final int validationCode;
     private boolean isValid;
 

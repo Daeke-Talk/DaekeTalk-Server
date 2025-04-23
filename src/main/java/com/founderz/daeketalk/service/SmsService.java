@@ -26,7 +26,6 @@ public class SmsService {
         phoneValCheckRepository.save(
                 new PhoneValidationCheck(
                         request.phone_number(),
-                        request.name(),
                         validationCode,
                         false
                 ));

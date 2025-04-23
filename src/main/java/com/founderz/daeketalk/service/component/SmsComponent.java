@@ -49,6 +49,18 @@ public class SmsComponent {
         smsClient.sendSms(smsProperties.apiKey(), "111.222.111.222", request);
     }
 
+    public void sendCancelledMessage(String phoneNumber) {
+        SendSmsForm request = new SendSmsForm(
+                smsProperties.tokenKey(),
+                "sms",
+                smsProperties.phoneNumber(),
+                phoneNumber,
+                createCancelMessage()
+        );
+
+        smsClient.sendSms(smsProperties.apiKey(), "111.222.111.222", request);
+    }
+
     private String createCodeMessage(int validationCode) {
         return String.format("""
             대크톡 인증번호 [%06d]
@@ -93,5 +105,17 @@ public class SmsComponent {
                 
                 행사 소개 페이지 :
                 https://daektalk.xquare.app/""", name).stripIndent();
+    }
+
+    private String createCancelMessage() {
+        return """
+                [대크톡]
+
+                요청하신 대크톡 참가 신청 취소가 정상적으로 처리되었습니다.
+                
+                남겨주신 관심에 진심으로 감사드리며, 다음 기회에 다시 뵐 수 있기를 바랍니다.
+                
+                감사합니다.
+                DSM 9기 학생회 드림""".stripIndent();
     }
 }

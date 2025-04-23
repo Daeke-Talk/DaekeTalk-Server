@@ -62,5 +62,7 @@ public class ApplyService {
     @Transactional
     public void cancelApply(String phoneNumber) {
         participantRepository.deleteByPhoneNumber(phoneNumber);
+
+        smsComponent.sendCancelledMessage(phoneNumber);
     }
 }
