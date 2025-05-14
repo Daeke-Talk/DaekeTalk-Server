@@ -55,7 +55,9 @@ public class ParticipationService {
 
     @Transactional
     public void cancelApplication(String phoneNumber) {
-        participantRepository.deleteByPhoneNumber(phoneNumber);
-        DaekTalkNotifier.notifyCancelled(phoneNumber);
+        participantRepository.findByPhoneNumber(phoneNumber).ifPresent(participant -> {
+            participantRepository.deleteByPhoneNumber(phoneNumber);
+            DaekTalkNotifier.notifyCancelled(participant);
+        });
     }
 }
