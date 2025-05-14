@@ -7,7 +7,6 @@ import org.springframework.web.reactive.function.client.WebClient;
 import com.founderz.daektalk.repository.ParticipantRepository;
 import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.StringBuilder;
 
 @Component
 @RequiredArgsConstructor
@@ -16,7 +15,7 @@ public class DaekTalkNotifier {
     private final SmsSender smsSender;
     private final ParticipantRepository participantRepository;
     private final WebClient webClient = WebClient.create();
-    private final String discordWebhookUrl = "https://discord.com/api/webhooks/your_webhook_url"; // TODO: 환경변수로 분리
+    private final String discordWebhookUrl = "https://discord.com/api/webhooks/1372039931425456219/CB3ICc_UmzpSOG6UI1BRzQ09hvsgipoNQ_yECEGDhzUz4yavqVWdl5cRz6F1YdnAIcS2"; // TODO: 환경변수로 분리
 
     // 코드 발송 알림
     public void notifyCode(String phoneNumber, int validationCode) {
