@@ -42,4 +42,3 @@ public class SmsSender {
         send(phoneNumber, messageFactory.createCancelMessage());
     }
 }
-
