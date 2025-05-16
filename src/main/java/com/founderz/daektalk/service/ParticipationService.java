@@ -27,6 +27,7 @@ public class ParticipationService {
                 .generation(request.generation())
                 .jobPosition(request.job_position())
                 .phoneNumber(request.phone_number())
+                .isNetworkingParticipant(request.is_networking_participant())
                 .isConfirmed(false)
                 .build();
 

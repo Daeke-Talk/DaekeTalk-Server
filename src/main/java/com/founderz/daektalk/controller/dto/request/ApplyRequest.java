@@ -6,6 +6,7 @@ public record ApplyRequest(
         String name,
         Integer generation,
         JobPosition job_position,
-        String phone_number
+        String phone_number,
+        boolean is_networking_participant
 ) {
 }

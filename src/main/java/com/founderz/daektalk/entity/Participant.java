@@ -42,6 +42,9 @@ public class Participant {
     private String phoneNumber;
 
     @Column(nullable = false)
+    private Boolean isNetworkingParticipant = false;
+
+    @Column(nullable = false)
     private Boolean isConfirmed = false;
 
     public void confirm() {
