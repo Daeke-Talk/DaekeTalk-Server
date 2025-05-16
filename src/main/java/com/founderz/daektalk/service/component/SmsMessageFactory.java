@@ -63,4 +63,5 @@ public class SmsMessageFactory {
             감사합니다.
             DSM 9기 학생회 드림""".stripIndent();
     }
+
 }
