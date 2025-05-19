@@ -48,10 +48,26 @@ public class DaekTalkNotifier {
     }
 
     private void sendDiscordNotification(String action, Participant participant) {
-        // 기수별 신청자 명단 집계
-        Map<Integer, List<Participant>> byGen = participantRepository.findAll().stream()
-            .collect(Collectors.groupingBy(Participant::getGeneration));
+        List<Participant> all = participantRepository.findAll();
+        List<Participant> executives = all.stream()
+            .filter(p -> EXECUTIVES.contains(p.getName()))
+            .sorted(Comparator.comparing(Participant::getName))
+            .toList();
+        List<Participant> nonExecutives = all.stream()
+            .filter(p -> !EXECUTIVES.contains(p.getName()))
+            .toList();
 
+        long total = nonExecutives.size();
+        long graduates = nonExecutives.stream().filter(p -> p.getGeneration() >= 8).count();
+        long students = nonExecutives.stream().filter(p -> p.getGeneration() < 8).count();
+
+        StringBuilder execMsg = new StringBuilder();
+        execMsg.append("학생회(").append(executives.size()).append("명):\n");
+        execMsg.append(executives.stream().map(Participant::getName).collect(Collectors.joining(", "))).append("\n\n");
+
+        // 기수별 명단 (임원 제외)
+        Map<Integer, List<Participant>> byGen = nonExecutives.stream()
+            .collect(Collectors.groupingBy(Participant::getGeneration));
         StringBuilder genMsg = new StringBuilder();
         byGen.entrySet().stream()
             .sorted(Map.Entry.comparingByKey())
@@ -59,7 +75,6 @@ public class DaekTalkNotifier {
                 Integer gen = entry.getKey();
                 List<Participant> list = entry.getValue();
                 genMsg.append(gen).append("기: ").append(list.size()).append("명\n");
-                // 분야별 그룹핑
                 Map<JobPosition, List<Participant>> byJob = list.stream()
                     .collect(Collectors.groupingBy(Participant::getJobPosition));
                 byJob.entrySet().stream()
@@ -69,18 +84,22 @@ public class DaekTalkNotifier {
                         List<Participant> jobList = jobEntry.getValue();
                         String names = jobList.stream()
                             .sorted(Comparator.comparing(Participant::getName))
-                            .map(p -> EXECUTIVES.contains(p.getName()) ? p.getName() + "(임원)" : p.getName())
+                            .map(Participant::getName)
                             .collect(Collectors.joining(", "));
                         genMsg.append("- ").append(job.name()).append(": ").append(names).append("\n");
                     });
             });
 
         String content = String.format(
-            "[%s] %s (%s기, %s)\n\n기수별 신청자 명단:\n%s",
+            "[%s] %s (%s기, %s)\n\n전체 인원: %d명 (학생회 임원 제외)\n재학생: %d명 / 졸업생: %d명\n\n%s기수별 신청자 명단:\n%s",
             action,
             participant.getName(),
             participant.getGeneration(),
             participant.getJobPosition(),
+            total,
+            students,
+            graduates,
+            execMsg,
             genMsg
         );
         webClient.post()
