@@ -58,8 +58,9 @@ public class DaekTalkNotifier {
             .toList();
 
         long total = nonExecutives.size();
-        long graduates = nonExecutives.stream().filter(p -> p.getGeneration() >= 8).count();
-        long students = nonExecutives.stream().filter(p -> p.getGeneration() < 8).count();
+        long graduates = nonExecutives.stream().filter(p -> p.getGeneration() >= 1 && p.getGeneration() <= 8).count();
+        long students = nonExecutives.stream().filter(p -> p.getGeneration() >= 9 && p.getGeneration() <= 11).count();
+        long totalWithExec = all.size();
 
         StringBuilder execMsg = new StringBuilder();
         execMsg.append("학생회(").append(executives.size()).append("명):\n");
@@ -91,14 +92,15 @@ public class DaekTalkNotifier {
             });
 
         String content = String.format(
-            "[%s] %s (%s기, %s)\n\n전체 인원: %d명 (학생회 임원 제외)\졸업생: %d명 / 재학생: %d명\n\n%s기수별 신청자 명단:\n%s",
+            "[%s] %s (%s기, %s)\n\n전체 인원: %d명 (학생회 임원 제외)\n전체 인원: %d명 (학생회 임원 포함)\n졸업생: %d명 / 재학생: %d명\n\n%s기수별 신청자 명단:\n%s",
             action,
             participant.getName(),
             participant.getGeneration(),
             participant.getJobPosition(),
             total,
-            students,
+            totalWithExec,
             graduates,
+            students,
             execMsg,
             genMsg
         );
