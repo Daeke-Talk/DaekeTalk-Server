@@ -49,7 +49,9 @@ public class SmsMessageFactory {
             감사합니다!
 
             행사 소개 페이지:
-            https://daektalk.xquare.app/""", name).stripIndent();
+            https://daektalk.xquare.app/
+            
+            *재학생 여러분은 반드시 학부모님께 행사 참가 여부를 미리 안내드리고, 허락을 받은 후에만 참가하실 수 있습니다.""", name).stripIndent();
     }
 
     public String createCancelMessage() {
