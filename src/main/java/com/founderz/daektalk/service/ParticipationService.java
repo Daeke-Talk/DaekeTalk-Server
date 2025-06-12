@@ -44,6 +44,15 @@ public class ParticipationService {
         participants.forEach(DaekTalkNotifier::notifyConfirmed);
     }
 
+    @Transactional
+    public void confirmAllParticipation() {
+        List<Participant> participants = participantRepository.findAll();
+        for (Participant participant : participants) {
+            participant.confirm();
+        }
+        participants.forEach(DaekTalkNotifier::notifyConfirmed);
+    }
+
     @Transactional(readOnly = true)
     public ApplyRecordResponse getApplyRecord(String phoneNumber) {
         return participantRepository.findByPhoneNumber(phoneNumber)

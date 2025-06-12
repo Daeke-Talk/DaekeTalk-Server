@@ -28,6 +28,11 @@ public class DaekTalkParticipationController {
         participationService.confirmedParticipation(request);
     }
 
+    @PostMapping("/confirm-all-participant")
+    public void confirmAllParticipation() {
+        participationService.confirmAllParticipation();
+    }
+
     @GetMapping("/record/{phoneNumber}")
     public ApplyRecordResponse getApplyRecord(@PathVariable String phoneNumber) {
         return participationService.getApplyRecord(phoneNumber);
